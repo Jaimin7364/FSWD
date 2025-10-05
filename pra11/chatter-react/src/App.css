@@ -1,0 +1,5 @@
+
+:root{
+  --bg:#0b1020; --panel:#121735; --muted:#93a5fd; --text:#e8eeff; --accent:#6c7cff; --accent-2:#16db65; --danger:#ff5c7a;
+}
+*{box-sizing:border-box}

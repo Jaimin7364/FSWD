@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids Calculator</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background: linear-gradient(135deg, #74b9ff, #fd79a8);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .calculator-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #2d3436;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .input-group {
+            margin: 20px 0;
+        }
+        
+        label {
+            display: block;
+            font-size: 1.2em;
+            color: #2d3436;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        input[type="number"] {
+            width: 200px;
+            padding: 15px;
+            font-size: 1.2em;
+            border: 3px solid #74b9ff;
+            border-radius: 10px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        
+        .operation-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .op-btn {
+            padding: 20px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .add { background: #00b894; }
+        .subtract { background: #fd79a8; }
+        .multiply { background: #fdcb6e; }
+        .divide { background: #6c5ce7; }
+        
+        .op-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .op-btn.selected {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .calculate-btn {
+            background: #e17055;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.3em;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .calculate-btn:hover {
+            background: #d63031;
+            transform: scale(1.05);
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .result.success {
+            background: #00b894;
+            color: white;
+        }
+        
+        .result.error {
+            background: #d63031;
+            color: white;
+        }
+        
+        .emoji {
+            font-size: 2em;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>🧮 Kids Calculator 🧮</h1>
+        
+        <form id="calculatorForm" action="/calculate" method="POST">
+            <div class="input-group">
+                <label for="number1">First Number:</label>
+                <input type="number" id="number1" name="number1" required step="any" placeholder="Enter first number">
+            </div>
+            
+            <div class="input-group">
+                <label for="number2">Second Number:</label>
+                <input type="number" id="number2" name="number2" required step="any" placeholder="Enter second number">
+            </div>
+            
+            <div class="input-group">
+                <label>Choose Operation:</label>
+                <div class="operation-buttons">
+                    <button type="button" class="op-btn add" onclick="selectOperation('add')">
+                        ➕ Add
+                    </button>
+                    <button type="button" class="op-btn subtract" onclick="selectOperation('subtract')">
+                        ➖ Subtract
+                    </button>
+                    <button type="button" class="op-btn multiply" onclick="selectOperation('multiply')">
+                        ✖️ Multiply
+                    </button>
+                    <button type="button" class="op-btn divide" onclick="selectOperation('divide')">
+                        ➗ Divide
+                    </button>
+                </div>
+                <input type="hidden" id="operation" name="operation" required>
+            </div>
+            
+            <button type="submit" class="calculate-btn">🎯 Calculate!</button>
+        </form>
+        
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        let selectedOperation = null;
+
+        function selectOperation(operation) {
+            // Remove selected class from all buttons
+            document.querySelectorAll('.op-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked button
+            event.target.classList.add('selected');
+            
+            // Set the operation value
+            selectedOperation = operation;
+            document.getElementById('operation').value = operation;
+        }
+
+        document.getElementById('calculatorForm').addEventListener('submit', function(e) {
+            if (!selectedOperation) {
+                e.preventDefault();
+                alert('Please select an operation! 😊');
+            }
+        });
+    </script>
+</body>
+</html>

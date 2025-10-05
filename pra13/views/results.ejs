@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Income Results</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .results-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            font-weight: 400;
+        }
+        
+        .income-breakdown {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .income-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 1.1em;
+        }
+        
+        .income-item:last-child {
+            border-bottom: none;
+        }
+        
+        .income-label {
+            font-weight: 600;
+            color: #495057;
+            display: flex;
+            align-items: center;
+        }
+        
+        .income-amount {
+            font-weight: 700;
+            color: #28a745;
+            font-size: 1.2em;
+        }
+        
+        .total-section {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
+        }
+        
+        .total-label {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .total-amount {
+            font-size: 3em;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .icon {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+        
+        .tax-info {
+            background: #e7f3ff;
+            border: 1px solid #b8daff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+        
+        .tax-info-title {
+            font-weight: 700;
+            color: #004085;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .tax-info-content {
+            color: #0056b3;
+            line-height: 1.6;
+        }
+        
+        .calculation-details {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .calculation-formula {
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            text-align: center;
+            font-size: 1.1em;
+            color: #495057;
+        }
+        
+        @media (max-width: 768px) {
+            .results-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .total-amount {
+                font-size: 2.5em;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="results-container">
+        <div class="header">
+            <h1><span class="icon">📋</span>Income Calculation Results</h1>
+            <p class="subtitle">Your total annual income summary</p>
+        </div>
+        
+        <div class="calculation-details">
+            <h3 style="color: #856404; margin-bottom: 15px;">
+                <span class="icon">🧮</span>Calculation Breakdown
+            </h3>
+            <div class="calculation-formula">
+                Total Income = Primary Income + Secondary Income
+            </div>
+            <div class="calculation-formula">
+                $<%= formatNumber(totalIncome) %> = $<%= formatNumber(income1) %> + $<%= formatNumber(income2) %>
+            </div>
+        </div>
+        
+        <div class="income-breakdown">
+            <div class="income-item">
+                <div class="income-label">
+                    <span class="icon">💼</span>Primary Income Source
+                </div>
+                <div class="income-amount">$<%= formatNumber(income1) %></div>
+            </div>
+            
+            <div class="income-item">
+                <div class="income-label">
+                    <span class="icon">🏢</span>Secondary Income Source
+                </div>
+                <div class="income-amount">$<%= formatNumber(income2) %></div>
+            </div>
+        </div>
+        
+        <div class="total-section">
+            <div class="total-label">
+                <span class="icon">💰</span>Total Annual Income
+            </div>
+            <div class="total-amount">$<%= formatNumber(totalIncome) %></div>
+        </div>
+        
+        <div class="actions">
+            <a href="/" class="btn btn-primary">
+                <span class="icon">🔄</span>Calculate Again
+            </a>
+            <button onclick="window.print()" class="btn btn-secondary">
+                <span class="icon">🖨️</span>Print Results
+            </button>
+        </div>
+        
+        <div class="tax-info">
+            <div class="tax-info-title">
+                <span class="icon">📚</span>Important Tax Information
+            </div>
+            <div class="tax-info-content">
+                <strong>Note:</strong> This calculation shows your gross total income from both sources. 
+                Remember that actual taxable income may differ after considering:
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li>Standard or itemized deductions</li>
+                    <li>Tax credits and exemptions</li>
+                    <li>Pre-tax contributions (401k, health insurance, etc.)</li>
+                    <li>Different tax rates for different income types</li>
+                </ul>
+                <strong>Recommendation:</strong> Consult with a qualified tax professional 
+                to understand your complete tax situation and optimize your tax strategy.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add print styles
+        const printStyles = `
+            <style>
+                @media print {
+                    body { background: white !important; }
+                    .results-container { 
+                        box-shadow: none !important; 
+                        border: 1px solid #ddd;
+                    }
+                    .actions { display: none !important; }
+                    .total-section { 
+                        background: #f8f9fa !important; 
+                        color: #333 !important; 
+                    }
+                }
+            </style>
+        `;
+        document.head.insertAdjacentHTML('beforeend', printStyles);
+    </script>
+</body>
+</html>
