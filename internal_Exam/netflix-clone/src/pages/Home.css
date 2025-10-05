@@ -1,0 +1,16 @@
+.home {
+  background-color: #111;
+  min-height: 100vh;
+  color: white;
+}
+
+.home__rows {
+  padding-bottom: 40px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .home__rows {
+    padding-bottom: 20px;
+  }
+}

@@ -1,0 +1,109 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #d6b4fc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: #19173c;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  color: white;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-container {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #9e6cfc;
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  background-color: transparent;
+  color: white;
+  outline: none;
+}
+
+input::placeholder {
+  color: #ccc;
+}
+
+button {
+  background-color: #9e6cfc;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #a67dfd;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-item {
+  background-color: #9e6cfc;
+  padding: 10px 15px;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-item.completed {
+  background-color: #45d58a;
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+.icons button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.icons button:hover {
+  transform: scale(1.2);
+}
+
+.completed-section h2 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  text-align: center;
+  color: #8ce7ba;
+}
+.input-container button:last-child {
+  background-color: #2196f3;
+  color: white;
+  margin-left: 10px;
+}

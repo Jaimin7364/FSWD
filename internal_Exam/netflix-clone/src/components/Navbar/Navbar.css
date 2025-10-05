@@ -1,0 +1,158 @@
+.nav {
+  position: fixed;
+  top: 0;
+  padding: 20px;
+  width: 100%;
+  height: 68px;
+  z-index: 1000;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 10%, transparent);
+  transition: all 0.5s ease-in-out;
+}
+
+.nav__black {
+  background-color: #111;
+}
+
+.nav__contents {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1920px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.nav__left {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav__logo {
+  height: 40px;
+  cursor: pointer;
+}
+
+.nav__links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__links li {
+  color: #e5e5e5;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav__links li:hover {
+  color: #b3b3b3;
+}
+
+.nav__links li:first-child {
+  color: white;
+  font-weight: 700;
+}
+
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav__search,
+.nav__notifications {
+  cursor: pointer;
+  padding: 5px;
+  transition: opacity 0.3s ease;
+}
+
+.nav__search:hover,
+.nav__notifications:hover {
+  opacity: 0.7;
+}
+
+.nav__kids {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav__kids:hover {
+  color: #b3b3b3;
+}
+
+.nav__profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav__avatar {
+  height: 32px;
+  width: 32px;
+  border-radius: 4px;
+}
+
+.nav__dropdown {
+  transition: transform 0.3s ease;
+}
+
+.nav__profile:hover .nav__dropdown {
+  transform: rotate(180deg);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .nav {
+    padding: 15px 20px;
+  }
+  
+  .nav__links {
+    display: none;
+  }
+  
+  .nav__left {
+    gap: 20px;
+  }
+  
+  .nav__logo {
+    height: 30px;
+  }
+  
+  .nav__right {
+    gap: 15px;
+  }
+  
+  .nav__kids {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav {
+    padding: 10px 15px;
+  }
+  
+  .nav__right {
+    gap: 10px;
+  }
+  
+  .nav__search,
+  .nav__notifications {
+    display: none;
+  }
+  
+  .nav__avatar {
+    height: 28px;
+    width: 28px;
+  }
+}

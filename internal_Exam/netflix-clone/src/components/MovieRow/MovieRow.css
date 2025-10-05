@@ -1,0 +1,141 @@
+.movie-row {
+  margin: 40px 0;
+  padding: 0 60px;
+}
+
+.movie-row__title {
+  color: #e5e5e5;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  margin-left: 4px;
+}
+
+.movie-row__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.movie-row__posters {
+  display: flex;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  gap: 10px;
+  padding: 20px 0;
+}
+
+.movie-row__posters::-webkit-scrollbar {
+  display: none;
+}
+
+.movie-row__scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  border: none;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.movie-row__container:hover .movie-row__scroll-btn {
+  opacity: 1;
+}
+
+.movie-row__scroll-btn:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.movie-row__scroll-btn--left {
+  left: -25px;
+}
+
+.movie-row__scroll-btn--right {
+  right: -25px;
+}
+
+.movie-row__loading {
+  color: #e5e5e5;
+  font-size: 1rem;
+  padding: 40px 0;
+  text-align: center;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .movie-row {
+    margin: 30px 0;
+    padding: 0 30px;
+  }
+  
+  .movie-row__title {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+  
+  .movie-row__posters {
+    gap: 8px;
+    padding: 15px 0;
+  }
+  
+  .movie-row__scroll-btn {
+    width: 40px;
+    height: 40px;
+    opacity: 1; /* Always visible on mobile */
+  }
+  
+  .movie-row__scroll-btn--left {
+    left: -20px;
+  }
+  
+  .movie-row__scroll-btn--right {
+    right: -20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .movie-row {
+    margin: 20px 0;
+    padding: 0 20px;
+  }
+  
+  .movie-row__title {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  
+  .movie-row__posters {
+    gap: 6px;
+    padding: 10px 0;
+  }
+  
+  .movie-row__scroll-btn {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .movie-row__scroll-btn--left {
+    left: -15px;
+  }
+  
+  .movie-row__scroll-btn--right {
+    right: -15px;
+  }
+  
+  .movie-row__scroll-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+}
