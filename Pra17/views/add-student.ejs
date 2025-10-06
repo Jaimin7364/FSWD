@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Student Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) translateX(-2px);
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #c33;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(0); }
+            10%, 30%, 70%, 90% { transform: translateX(-5px); }
+            40%, 60% { transform: translateX(5px); }
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 117, 125, 0.3);
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .back-btn {
+                position: static;
+                transform: none;
+                margin-bottom: 15px;
+                display: inline-block;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        .form-hint {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .grade-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .grade-options option {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="/" class="back-btn">← Back to Dashboard</a>
+            <h1><%= title %></h1>
+            <p class="subtitle">Add a new student to the management system</p>
+        </div>
+
+        <div class="form-container">
+            <% if (error) { %>
+                <div class="error-message">
+                    <strong>Error:</strong> <%= error %>
+                </div>
+            <% } %>
+
+            <form action="/students" method="POST">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="firstName">First Name <span class="required">*</span></label>
+                        <input type="text" id="firstName" name="firstName" value="<%= student.firstName || '' %>" required>
+                        <div class="form-hint">Enter the student's first name</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last Name <span class="required">*</span></label>
+                        <input type="text" id="lastName" name="lastName" value="<%= student.lastName || '' %>" required>
+                        <div class="form-hint">Enter the student's last name</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" value="<%= student.email || '' %>" required>
+                        <div class="form-hint">Enter a valid email address</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" value="<%= student.phone || '' %>">
+                        <div class="form-hint">Enter phone number with country code</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dateOfBirth">Date of Birth <span class="required">*</span></label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth" value="<%= student.dateOfBirth ? new Date(student.dateOfBirth).toISOString().split('T')[0] : '' %>" required>
+                        <div class="form-hint">Student's date of birth</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="grade">Grade/Class <span class="required">*</span></label>
+                        <select id="grade" name="grade" required>
+                            <option value="">Select Grade</option>
+                            <option value="1" <%= student.grade == '1' ? 'selected' : '' %>>Grade 1</option>
+                            <option value="2" <%= student.grade == '2' ? 'selected' : '' %>>Grade 2</option>
+                            <option value="3" <%= student.grade == '3' ? 'selected' : '' %>>Grade 3</option>
+                            <option value="4" <%= student.grade == '4' ? 'selected' : '' %>>Grade 4</option>
+                            <option value="5" <%= student.grade == '5' ? 'selected' : '' %>>Grade 5</option>
+                            <option value="6" <%= student.grade == '6' ? 'selected' : '' %>>Grade 6</option>
+                            <option value="7" <%= student.grade == '7' ? 'selected' : '' %>>Grade 7</option>
+                            <option value="8" <%= student.grade == '8' ? 'selected' : '' %>>Grade 8</option>
+                            <option value="9" <%= student.grade == '9' ? 'selected' : '' %>>Grade 9</option>
+                            <option value="10" <%= student.grade == '10' ? 'selected' : '' %>>Grade 10</option>
+                            <option value="11" <%= student.grade == '11' ? 'selected' : '' %>>Grade 11</option>
+                            <option value="12" <%= student.grade == '12' ? 'selected' : '' %>>Grade 12</option>
+                        </select>
+                        <div class="form-hint">Select the student's current grade</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subjects">Subjects</label>
+                        <input type="text" id="subjects" name="subjects" value="<%= (student.subjects || []).join(', ') %>" placeholder="Math, Science, English">
+                        <div class="form-hint">Enter subjects separated by commas</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="feeAmount">Fee Amount (₹)</label>
+                        <input type="number" id="feeAmount" name="feeAmount" value="<%= student.feeAmount || '' %>" min="0" step="0.01">
+                        <div class="form-hint">Monthly fee amount in rupees</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" name="status">
+                            <option value="active" <%= student.status === 'active' ? 'selected' : '' %>>Active</option>
+                            <option value="inactive" <%= student.status === 'inactive' ? 'selected' : '' %>>Inactive</option>
+                            <option value="graduated" <%= student.status === 'graduated' ? 'selected' : '' %>>Graduated</option>
+                            <option value="dropped" <%= student.status === 'dropped' ? 'selected' : '' %>>Dropped</option>
+                        </select>
+                        <div class="form-hint">Current status of the student</div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="address">Address</label>
+                        <textarea id="address" name="address" placeholder="Enter complete address"><%= student.address || '' %></textarea>
+                        <div class="form-hint">Complete residential address</div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="notes">Additional Notes</label>
+                        <textarea id="notes" name="notes" placeholder="Any additional information about the student"><%= student.notes || '' %></textarea>
+                        <div class="form-hint">Optional notes about the student</div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">Add Student</button>
+                    <a href="/" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Auto-generate student ID based on grade and name
+        function generateStudentId() {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const grade = document.getElementById('grade').value;
+            
+            if (firstName && lastName && grade) {
+                const year = new Date().getFullYear();
+                const initials = (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
+                const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+                const studentId = `${year}${grade.padStart(2, '0')}${initials}${random}`;
+                
+                // Add hidden field for studentId if it doesn't exist
+                let studentIdField = document.getElementById('studentId');
+                if (!studentIdField) {
+                    studentIdField = document.createElement('input');
+                    studentIdField.type = 'hidden';
+                    studentIdField.id = 'studentId';
+                    studentIdField.name = 'studentId';
+                    document.querySelector('form').appendChild(studentIdField);
+                }
+                studentIdField.value = studentId;
+            }
+        }
+
+        // Generate student ID when relevant fields change
+        document.getElementById('firstName').addEventListener('input', generateStudentId);
+        document.getElementById('lastName').addEventListener('input', generateStudentId);
+        document.getElementById('grade').addEventListener('change', generateStudentId);
+
+        // Convert subjects string to array before form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const subjectsField = document.getElementById('subjects');
+            if (subjectsField.value) {
+                // Create hidden fields for each subject
+                const subjects = subjectsField.value.split(',').map(s => s.trim()).filter(s => s);
+                subjects.forEach((subject, index) => {
+                    const hiddenField = document.createElement('input');
+                    hiddenField.type = 'hidden';
+                    hiddenField.name = `subjects[${index}]`;
+                    hiddenField.value = subject;
+                    this.appendChild(hiddenField);
+                });
+            }
+        });
+
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                e.preventDefault();
+                return;
+            }
+            
+            // Phone validation (optional)
+            if (phone && !/^[\+]?[1-9][\d]{0,15}$/.test(phone.replace(/[\s\-\(\)]/g, ''))) {
+                alert('Please enter a valid phone number');
+                e.preventDefault();
+                return;
+            }
+        });
+    </script>
+</body>
+</html>

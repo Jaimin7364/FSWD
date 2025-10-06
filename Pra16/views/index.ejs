@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Contact Me</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .portfolio-info {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .portfolio-info h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .portfolio-info p {
+            color: #6c757d;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .skill-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-item:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .skill-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .skill-name {
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .contact-form-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .contact-form h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-group .input-note {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
+        }
+        
+        .submit-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .message {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            text-align: center;
+            display: none;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .message.show {
+            display: block;
+        }
+        
+        .contact-info {
+            background: #2c3e50;
+            color: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .contact-method {
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-method:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .contact-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .contact-text {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .portfolio-info,
+            .contact-form-container {
+                padding: 30px 20px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💼 Freelance Portfolio</h1>
+            <p class="subtitle">Full-Stack Developer & Creative Problem Solver</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="portfolio-info">
+                <h2>👨‍💻 About Me</h2>
+                <p>
+                    Welcome to my portfolio! I'm a passionate full-stack developer with expertise 
+                    in modern web technologies. I love creating innovative solutions that make a 
+                    real difference for businesses and users.
+                </p>
+                <p>
+                    With years of experience in both frontend and backend development, I specialize 
+                    in building scalable web applications, responsive designs, and seamless user experiences.
+                </p>
+                
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-icon">⚛️</div>
+                        <div class="skill-name">React.js</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🟢</div>
+                        <div class="skill-name">Node.js</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🅰️</div>
+                        <div class="skill-name">Angular</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🍃</div>
+                        <div class="skill-name">MongoDB</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🐘</div>
+                        <div class="skill-name">PostgreSQL</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">☁️</div>
+                        <div class="skill-name">AWS</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form-container">
+                <h2>📬 Get In Touch</h2>
+                
+                <div id="message" class="message"></div>
+                
+                <form id="contactForm" action="/send-message" method="POST">
+                    <div class="form-group">
+                        <label for="name">👤 Full Name *</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            placeholder="Enter your full name"
+                            required
+                            minlength="2"
+                            maxlength="50"
+                        >
+                        <div class="input-note">Your name will be used in the email communication</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">📧 Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="Enter your email address"
+                            required
+                        >
+                        <div class="input-note">I'll use this email to respond to your message</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">📱 Phone Number (Optional)</label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            name="phone" 
+                            placeholder="Enter your phone number"
+                        >
+                        <div class="input-note">Optional - for urgent project discussions</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">📋 Subject *</label>
+                        <input 
+                            type="text" 
+                            id="subject" 
+                            name="subject" 
+                            placeholder="What's this about?"
+                            required
+                            maxlength="100"
+                        >
+                        <div class="input-note">Brief description of your inquiry</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">💬 Message *</label>
+                        <textarea 
+                            id="messageText" 
+                            name="message" 
+                            placeholder="Tell me about your project or inquiry..."
+                            required
+                            minlength="10"
+                            maxlength="1000"
+                        ></textarea>
+                        <div class="input-note">Please provide details about your project or question</div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        🚀 Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="contact-info">
+            <h3>🌟 Let's Work Together!</h3>
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-text">
+                        Quick Email Response<br>
+                        <small>Usually within 24 hours</small>
+                    </div>
+                </div>
+                <div class="contact-method">
+                    <div class="contact-icon">💼</div>
+                    <div class="contact-text">
+                        Project Consultation<br>
+                        <small>Free initial discussion</small>
+                    </div>
+                </div>
+                <div class="contact-method">
+                    <div class="contact-icon">⚡</div>
+                    <div class="contact-text">
+                        Fast Turnaround<br>
+                        <small>Quality work delivered quickly</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const contactForm = document.getElementById('contactForm');
+        const message = document.getElementById('message');
+        const submitBtn = document.getElementById('submitBtn');
+
+        function showMessage(text, type) {
+            message.textContent = text;
+            message.className = `message ${type} show`;
+            
+            // Auto-hide success messages after 5 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    message.classList.remove('show');
+                }, 5000);
+            }
+        }
+
+        function setLoadingState(loading) {
+            if (loading) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<div class="loading-spinner"></div>Sending Message...';
+            } else {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '🚀 Send Message';
+            }
+        }
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Hide any existing messages
+            message.classList.remove('show');
+            
+            // Set loading state
+            setLoadingState(true);
+            
+            // Get form data and convert to JSON
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('/send-message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showMessage(result.message, 'success');
+                    contactForm.reset(); // Clear the form
+                } else {
+                    showMessage(result.error || 'Failed to send message. Please try again.', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('Network error. Please check your connection and try again.', 'error');
+            } finally {
+                setLoadingState(false);
+            }
+        });
+
+        // Client-side validation feedback
+        const inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => {
+                if (input.checkValidity()) {
+                    input.style.borderColor = '#28a745';
+                } else {
+                    input.style.borderColor = '#dc3545';
+                }
+            });
+            
+            input.addEventListener('input', () => {
+                if (input.style.borderColor === '#dc3545' && input.checkValidity()) {
+                    input.style.borderColor = '#e9ecef';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
